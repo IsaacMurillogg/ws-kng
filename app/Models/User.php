@@ -40,10 +40,24 @@ class User extends Authenticatable
         return $this->role === 'admin';
     }
 
-    public function units()
+    /**
+     * The unidades that belong to the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function unidades() // Nombre cambiado a 'unidades' para consistencia
     {
-        return $this->belongsToMany(Unit::class, 'user_unit'); 
+        // Especificar la tabla pivote 'user_unidad' y las claves foráneas/locales si no siguen la convención estricta
+        return $this->belongsToMany(Unidad::class, 'user_unidad', 'user_id', 'unidad_id');
     }
 
-
+    /**
+     * Get all of the comentarios for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comentarios(): HasMany
+    {
+        return $this->hasMany(Comentario::class);
+    }
 }

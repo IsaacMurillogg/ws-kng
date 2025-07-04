@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_unit', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('unit_id')->constrained()->onDelete('cascade');
-            $table->primary(['user_id', 'unit_id']);
+        Schema::create('user_unidad', function (Blueprint $table) { // Renombrar tabla a user_unidad por claridad
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Referencia explícita a tabla users
+            $table->foreignId('unidad_id')->constrained('unidades')->onDelete('cascade'); // Referencia explícita a tabla unidades
+            $table->primary(['user_id', 'unidad_id']);
         });
     }
 
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_unit');
+        Schema::dropIfExists('user_unidad'); // Asegurarse que el down coincida con el nuevo nombre
     }
 };
